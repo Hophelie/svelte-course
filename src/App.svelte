@@ -1,27 +1,36 @@
 <script>
-  // OLD WAY TIPPY
-	// import { onMount } from "svelte";
-  // import tippy from "tippy.js"
-  // import 'tippy.js/dist/tippy.css'
+  import  {onMount} from 'svelte';
+ import Home from './lib/pages/Home.svelte'
+ import Settings from './lib/pages/Settings.svelte'
+  import Head from './lib/Head.svelte'
+ let page
+ function onRouteChange(){
+  // slice récupère le path sans le #
+    const path =  window.location.hash.slice(1);
+    if (path == '/'){
+      page = "home"
+    }else if (path == '/settings'){
+      page = "settings"
+    }else{
+      // redirect to home if don't exist
+      window.location.hash ="/"
+    }
+ }
 
-  // let button; 
-  // onMount(()=>{
-  //   tippy('.tooltip', {
-  //     content:'tootlip content'
-  //   })
-  //   tippy(button, {
-  //     content:'text'
-  //   })
-  // })
-  import tippy from './lib/actions/tippy'
-  let content = 'hello'
+ onMount(onRouteChange)
 </script>
-<!-- OLD WAY TIPPY
-<button class="tooltip">Button</button>
-<button class="tooltip" data-tippy-content="sfesf">Button</button>
-
-<button bind:this={button}>button</button> -->
-<input type="text" name="" id="" bind:value={content}>
-<button use:tippy={{content, placement:'right', theme:'light'}}>cc</button>
+<svelte:window on:hashchange={onRouteChange} />
+<svelte:head>
+ <Head/>
+</svelte:head>
+<nav>
+  <a href="#/">Home</a>
+  <a href="#/settings">Settings</a>
+</nav>
+  {#if page == 'home'}
+  <Home/>
+  {:else if page == 'settings'}
+  <Settings/>
+  {/if}
 <style>
 </style>

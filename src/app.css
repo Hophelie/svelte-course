@@ -1,8 +1,12 @@
 :root{
     --buttonBgColor: #9ab2ff;
     --buttonTextColor: white;
-    background-color: #d2e0f8;
-    color: rgb(127, 134, 156);
     font-family: 'Roboto', sans-serif;
     font-size: 24px;
+}
+
+body{
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+    font-family: 'Quicksand', sans-serif;
 }
